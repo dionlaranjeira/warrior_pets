@@ -7,16 +7,19 @@ class DogBreed {
   String? temperament;
   String? origin;
   String? referenceImageId;
+  Photo? image;
 
   DogBreed(
-      {this.id,
+      {
+        this.id,
         this.name,
         this.bredFor,
         this.breedGroup,
         this.lifeSpan,
         this.temperament,
         this.origin,
-        this.referenceImageId});
+        this.referenceImageId,
+        this.image});
 
   DogBreed.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -27,6 +30,7 @@ class DogBreed {
     temperament = json['temperament'];
     origin = json['origin'];
     referenceImageId = json['reference_image_id'];
+    image = json['image'] != null ? new Photo.fromJson(json['image']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +43,53 @@ class DogBreed {
     data['temperament'] = this.temperament;
     data['origin'] = this.origin;
     data['reference_image_id'] = this.referenceImageId;
+    if (this.image != null) {
+      data['image'] = this.image!.toJson();
+    }
+    return data;
+  }
+}
+
+class Measure {
+  String? imperial;
+  String? metric;
+
+  Measure({this.imperial, this.metric});
+
+  Measure.fromJson(Map<String, dynamic> json) {
+    imperial = json['imperial'];
+    metric = json['metric'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['imperial'] = this.imperial;
+    data['metric'] = this.metric;
+    return data;
+  }
+}
+
+class Photo {
+  String? id;
+  int? width;
+  int? height;
+  String? url;
+
+  Photo({this.id, this.width, this.height, this.url});
+
+  Photo.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    width = json['width'];
+    height = json['height'];
+    url = json['url'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['width'] = this.width;
+    data['height'] = this.height;
+    data['url'] = this.url;
     return data;
   }
 }
