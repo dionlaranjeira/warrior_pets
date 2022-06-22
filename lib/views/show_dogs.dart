@@ -19,7 +19,7 @@ class _ShowDogsState extends State<ShowDogs> {
     return Scaffold(
       appBar: AppBar(title: const Text("SHOW DOGS"),),
       body:FutureBuilder(
-        future: listDogsBreedsViewModel.fetchDogBreeds(0, 50),
+        future: listDogsBreedsViewModel.fetchDogBreeds(0, 100),
         builder: (context, snapshot){
 
           switch (snapshot.connectionState) {
@@ -28,6 +28,7 @@ class _ShowDogsState extends State<ShowDogs> {
             return const Center(child: CircularProgressIndicator(),);
             case ConnectionState.done:
               return MasonryGridView.count(
+                itemCount: listDogsBreedsViewModel.dogBreeds!.length,
                 crossAxisCount: 2,
                 mainAxisSpacing: 2,
                 crossAxisSpacing: 2,
