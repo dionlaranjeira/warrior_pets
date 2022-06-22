@@ -48,6 +48,50 @@ class DogBreed {
     }
     return data;
   }
+
+  String get nameString {
+    if (name == null || name!.isEmpty ){
+      return "Not Found";
+    }
+    return name!;
+  }
+
+
+  String get bredForString {
+    if (bredFor == null || bredFor!.isEmpty){
+      return "Not Found";
+    }
+    return bredFor!;
+  }
+
+  String get breedGroupString {
+    if (breedGroup == null || breedGroup!.isEmpty ){
+      return "Not Found";
+    }
+    return breedGroup!;
+  }
+
+  String get lifeSpanString {
+    if (lifeSpan! == null || lifeSpan!.isEmpty){
+      return "Not Found";
+    }
+    return lifeSpan!;
+  }
+
+  String get temperamentString {
+    if (temperament == null || temperament!.isEmpty){
+      return "Not Found";
+    }
+    return temperament!;
+  }
+
+  String get originString {
+    if (origin == null || origin!.isEmpty){
+      return "Not Found";
+    }
+    return origin!;
+  }
+
 }
 
 class Measure {
@@ -92,4 +136,7 @@ class Photo {
     data['url'] = this.url;
     return data;
   }
+
+
+
 }
