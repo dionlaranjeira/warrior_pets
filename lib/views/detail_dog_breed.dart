@@ -41,7 +41,7 @@ class _DetailDogBreedState extends State<DetailDogBreed> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                "Temperament: "+widget.dogBreed.temperamentString +"\nLife Span: "+ widget.dogBreed.temperamentString +"\nOrigin: " + widget.dogBreed.originString, textAlign: TextAlign.center,
+                "Temperament: "+widget.dogBreed.temperamentString +"\nLife Span: "+ widget.dogBreed.lifeSpanString +"\nOrigin: " + widget.dogBreed.originString, textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.black.withOpacity(0.6)),
               ),
             ),
