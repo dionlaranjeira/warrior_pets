@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/model/dog_breed.dart';
 import 'package:warrior_pets/view_model/list_dogs_breeds.dart';
@@ -15,14 +16,35 @@ class _ShowDogsState extends State<ShowDogs> {
 
   String urlPhotoNull = "https://www.pngall.com/wp-content/uploads/10/Pet-Silhouette.png";
 
+  ScrollController _scrollController = ScrollController();
+  int pageNumber = 0;
   ListDogsBreedsViewModel listDogsBreedsViewModel = ListDogsBreedsViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        pageNumber++;
+        setState(() {
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("SHOW DOGS"),),
       body:FutureBuilder(
-        future: listDogsBreedsViewModel.fetchDogBreeds(0, 100),
+        future: listDogsBreedsViewModel.fetchDogBreeds(pageNumber, 50),
         builder: (context, snapshot){
 
           switch (snapshot.connectionState) {
@@ -31,6 +53,8 @@ class _ShowDogsState extends State<ShowDogs> {
             return const Center(child: CircularProgressIndicator(),);
             case ConnectionState.done:
               return MasonryGridView.count(
+                // physics: const AlwaysScrollableScrollPhysics(),
+                controller: _scrollController,
                 itemCount: listDogsBreedsViewModel.dogBreeds!.length,
                 crossAxisCount: 2,
                 itemBuilder: (context, index) => cardDogBreed(listDogsBreedsViewModel.dogBreeds![index].dogBreed!),
