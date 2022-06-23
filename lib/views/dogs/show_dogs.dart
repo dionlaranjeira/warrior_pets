@@ -89,11 +89,7 @@ class _ShowDogsState extends State<ShowDogs> {
           children: [
             ListTile(
               title: Text(dogBreed.name ?? "", textAlign: TextAlign.center,),
-              subtitle: Text(dogBreed.breedGroup ?? "", textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.black.withOpacity(0.6)),
-              ),
             ),
-            // Image.network(dogBreed.image!.url ?? urlPhotoNull),
             Hero(
               tag: dogBreed.referenceImageId!,
               child: Material(
