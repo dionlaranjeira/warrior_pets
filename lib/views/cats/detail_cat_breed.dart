@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:warrior_pets/util/utils.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:warrior_pets/model/bar_chart.dart';
 
 class DetailCat extends StatefulWidget {
   final dynamic catBreed;
@@ -13,13 +15,32 @@ class DetailCat extends StatefulWidget {
 class _DetailCatState extends State<DetailCat> {
   String urlPhotoNull = "https://www.creativefabrica.com/wp-content/uploads/2021/01/26/Cat-Icon-Graphics-8071439-1.jpg";
 
+  final List<BarChart> data = [
+    BarChart("teste1", 5, charts.ColorUtil.fromDartColor(Colors.blueAccent)),
+    BarChart("teste2", 10, charts.ColorUtil.fromDartColor(Colors.black)),
+    BarChart("teste3", 51, charts.ColorUtil.fromDartColor(Colors.red)),
+    BarChart("teste4", 23, charts.ColorUtil.fromDartColor(Colors.green)),
+  ];
+
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    List<charts.Series<BarChart, String>> series = [
+      charts.Series(
+        id: "cat",
+        data: data,
+        domainFn: (BarChart series, _)=>series.title,
+        measureFn: (BarChart series, _)=>series.value,
+        colorFn: (BarChart series, _)=>series.color,
+      ),
+    ];
+    return
+  Scaffold(
     appBar: AppBar(
       title: Text(widget.catBreed.name),
     ),
     body:   SingleChildScrollView(
-      child: Card(
+      child:
+      Card(
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
@@ -47,6 +68,12 @@ class _DetailCatState extends State<DetailCat> {
                 style: TextStyle(color: Colors.black.withOpacity(0.6)),
               ),
             ),
+
+            Container(
+              height: 150,
+              padding: EdgeInsets.all(16),
+              child: charts.BarChart(series, animate: true),)
+
           ],
         ),
       ),
@@ -70,5 +97,5 @@ class _DetailCatState extends State<DetailCat> {
             ],
           ),
         )),
-  );
+  );}
 }
