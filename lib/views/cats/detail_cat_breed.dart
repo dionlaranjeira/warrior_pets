@@ -62,18 +62,19 @@ class _DetailCatState extends State<DetailCat> {
                 ),
               ),
             ),
+            Container(
+              height: 160,
+              padding: const EdgeInsets.only(bottom: 16),
+              child: charts.BarChart(series, animate: true),),
+
             Padding(
               padding: const EdgeInsets.all(8),
               child: Text(
                 widget.catBreed.description +"\nLife Span: " + widget.catBreed.lifeSpan, textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.black.withOpacity(0.6)),
               ),
-            ),
+            )
 
-            Container(
-              height: 160,
-              padding: const EdgeInsets.only(bottom: 16),
-              child: charts.BarChart(series, animate: true),)
 
           ],
         ),
