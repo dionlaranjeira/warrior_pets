@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/model/dog_breed.dart';
 import 'package:warrior_pets/view_model/list_dogs_breeds.dart';
@@ -16,7 +15,7 @@ class _ShowDogsState extends State<ShowDogs> {
 
   String urlPhotoNull = "https://www.pngall.com/wp-content/uploads/10/Pet-Silhouette.png";
 
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   int pageNumber = 0;
   ListDogsBreedsViewModel listDogsBreedsViewModel = ListDogsBreedsViewModel();
 
@@ -50,19 +49,26 @@ class _ShowDogsState extends State<ShowDogs> {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
             case ConnectionState.active:
-            return const Center(child: CircularProgressIndicator(),);
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Text("Loading data...",style: TextStyle(fontWeight: FontWeight.bold),),
+                SizedBox(height: 30),
+                Center(child: CircularProgressIndicator()),
+              ],
+            );
             case ConnectionState.done:
               return MasonryGridView.count(
-                // physics: const AlwaysScrollableScrollPhysics(),
                 controller: _scrollController,
                 itemCount: listDogsBreedsViewModel.dogBreeds!.length,
                 crossAxisCount: 2,
                 itemBuilder: (context, index) => cardDogBreed(listDogsBreedsViewModel.dogBreeds![index].dogBreed!),
               );
             case ConnectionState.none:
-              return  const Center(child: Text('Problemas de conexão com a internet'));
+              return  const Center(child: Text('Internet connection problems.'));
             default:
-              return const Center(child: Text('Problemas ao receber dados'));
+              return const Center(child: Text('Problems receiving data.'));
           }
 
         },
