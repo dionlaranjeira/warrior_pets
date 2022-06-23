@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:warrior_pets/model/cat_breed.dart';
 import 'package:warrior_pets/model/dog_breed.dart';
 import 'package:warrior_pets/services/end_points.dart';
 class Service{
@@ -15,7 +16,7 @@ class Service{
     };
 
     var response = await dio.get(
-      EndPoints.urlGetBreed,
+      EndPoints.urlGetDogBreed,
       queryParameters: parms,
     );
 
@@ -29,9 +30,38 @@ class Service{
       return dogBreeds;
 
     }else{
-      throw Exception("Erro fetching breeds");
+      throw Exception("Erro fetching dog breeds");
     }
 
   }
+
+  Future <List<CatBreed>> fetchCatBreeds(int page, int limit) async {
+
+    Map<String, dynamic> parms = {
+      "x-api-key": xApiKey,
+      "page":page,
+      "limit":limit
+    };
+
+    var response = await dio.get(
+      EndPoints.urlGetCatBreed,
+      queryParameters: parms,
+    );
+
+    if(response.statusCode == 200){
+      final listCatBreeds = response.data as List;
+      List<CatBreed> catBreeds = [];
+
+      for(var c in  listCatBreeds){
+        catBreeds.add( CatBreed.fromJson(c));
+      }
+      return catBreeds;
+
+    }else{
+      throw Exception("Erro fetching cat breeds");
+    }
+
+  }
+
 
 }
