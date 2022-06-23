@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:warrior_pets/util/utils.dart';
-import 'package:warrior_pets/views/show_cats.dart';
-import 'package:warrior_pets/views/show_dogs.dart';
+import 'package:warrior_pets/views/cats/show_cats.dart';
+import 'package:warrior_pets/views/dogs/show_dogs.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatefulWidget  {

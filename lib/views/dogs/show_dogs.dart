@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:warrior_pets/model/dog_breed.dart';
 import 'package:warrior_pets/view_model/list_dogs_breeds.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:warrior_pets/views/detail_dog_breed.dart';
+import 'package:warrior_pets/views/dogs/detail_dog_breed.dart';
 
 class ShowDogs extends StatefulWidget {
   const ShowDogs({Key? key}) : super(key: key);
