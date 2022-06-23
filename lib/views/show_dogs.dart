@@ -41,7 +41,6 @@ class _ShowDogsState extends State<ShowDogs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("SHOW DOGS"),),
       body:FutureBuilder(
         future: listDogsBreedsViewModel.fetchDogBreeds(pageNumber, 50),
         builder: (context, snapshot){

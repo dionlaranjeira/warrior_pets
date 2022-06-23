@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:warrior_pets/util/utils.dart';
 class DetailDogBreed extends StatefulWidget {
   final dynamic dogBreed;
   const DetailDogBreed({Key? key, required this.dogBreed}) : super(key: key);
@@ -22,7 +24,7 @@ class _DetailDogBreedState extends State<DetailDogBreed> {
         child: Column(
           children: [
             ListTile(
-              leading: const Icon(Icons.pets),
+              leading: SvgPicture.asset(Utils.urlIconDog, width: 50),
               title: Text("Dog Category: "+widget.dogBreed.breedGroupString),
               subtitle: Text(
                 widget.dogBreed.bredForString,
@@ -58,7 +60,7 @@ class _DetailDogBreedState extends State<DetailDogBreed> {
         ),
         onPressed: (){Navigator.pop(context);},
         child:  Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
