@@ -15,18 +15,19 @@ class DetailCat extends StatefulWidget {
 class _DetailCatState extends State<DetailCat> {
   String urlPhotoNull = "https://www.creativefabrica.com/wp-content/uploads/2021/01/26/Cat-Icon-Graphics-8071439-1.jpg";
 
-  final List<BarChart> data = [
-    BarChart("teste1", 5, charts.ColorUtil.fromDartColor(Colors.blueAccent)),
-    BarChart("teste2", 10, charts.ColorUtil.fromDartColor(Colors.black)),
-    BarChart("teste3", 51, charts.ColorUtil.fromDartColor(Colors.red)),
-    BarChart("teste4", 23, charts.ColorUtil.fromDartColor(Colors.green)),
-  ];
-
   @override
   Widget build(BuildContext context) {
+
+    final List<BarChart> data = [
+      BarChart("Affection", widget.catBreed.affectionLevel, charts.ColorUtil.fromDartColor(Colors.red)),
+      BarChart("Energy", widget.catBreed.energyLevel, charts.ColorUtil.fromDartColor(Colors.yellow)),
+      BarChart("Grooming", widget.catBreed.grooming, charts.ColorUtil.fromDartColor(Colors.green)),
+      BarChart("Intelligence", widget.catBreed.intelligence, charts.ColorUtil.fromDartColor(Colors.purple)),
+    ];
+
     List<charts.Series<BarChart, String>> series = [
       charts.Series(
-        id: "cat",
+        id: widget.catBreed.id,
         data: data,
         domainFn: (BarChart series, _)=>series.title,
         measureFn: (BarChart series, _)=>series.value,
@@ -62,7 +63,7 @@ class _DetailCatState extends State<DetailCat> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(8),
               child: Text(
                 widget.catBreed.description +"\nLife Span: " + widget.catBreed.lifeSpan, textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.black.withOpacity(0.6)),
@@ -70,8 +71,8 @@ class _DetailCatState extends State<DetailCat> {
             ),
 
             Container(
-              height: 150,
-              padding: EdgeInsets.all(16),
+              height: 160,
+              padding: const EdgeInsets.only(bottom: 16),
               child: charts.BarChart(series, animate: true),)
 
           ],
