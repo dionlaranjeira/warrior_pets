@@ -53,10 +53,11 @@ class Service{
       List<CatBreed> catBreeds = [];
 
       for(var c in  listCatBreeds){
-        catBreeds.add( CatBreed.fromJson(c));
+        if(c["image"] != null){
+          catBreeds.add( CatBreed.fromJson(c));
+        }
       }
       return catBreeds;
-
     }else{
       throw Exception("Erro fetching cat breeds");
     }
