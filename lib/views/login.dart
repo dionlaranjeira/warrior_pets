@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:warrior_pets/util/colors_app.dart';
+import 'package:warrior_pets/util/utils.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -14,71 +16,103 @@ class _LoginState extends State<Login> {
 
   final bool _logando = false;
   bool _senhaVisivel = true;
-  bool _emailValido = true;
-  bool _senhaValida = true;
-
-  bool _btnLoginVisible = true;
-
+  final bool _emailValido = true;
+  final bool _senhaValida = true;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("SEJA BEM VINDO!"),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
+    return MediaQuery(
+      data: const MediaQueryData(),
+      child: Scaffold(
+        body: Column(
           children: [
-            const SizedBox(height: 30),
-            // imageLogo(),
-            const SizedBox(height: 18),
-            textLogin(),
+            imgScreenLogin(context),
+            const SizedBox(height: 50),
             inputEmail(context),
             inputSenha(context),
-            const SizedBox(height: 18),
-            _btnLoginVisible ? buttonLogin() : const CircularProgressIndicator(),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
+            btnLogin()
           ],
         ),
       ),
     );
   }
 
-  ElevatedButton buttonLogin() {
-    return ElevatedButton(
-      onPressed: (){
-        _logar();
-      },
-      child: Wrap(
-        children: const [
-          Icon(
-            Icons.login,
-            color: Colors.white,
-            size: 24.0,
+  Stack imgScreenLogin(BuildContext context) {
+    return Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(color: ColorsApp.primaryColor, height: MediaQuery.of(context).size.height * 0.5),
+              Positioned(
+                bottom: -50,
+                left: 0,
+                right: 0,
+                child: Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    constraints: const BoxConstraints(maxWidth: 400),
+                    height: 300,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                      boxShadow: [
+                        BoxShadow(color: ColorsApp.secondaryColor, spreadRadius: 2),
+                      ],
+
+                      image: DecorationImage(
+                        image: AssetImage(Utils.urlImageLogin),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    // child: Image.asset(Utils.urlImageLogin),
+                  ),
+                ),
+              )
+            ],
+          );
+  }
+
+  SizedBox btnLogin() {
+    return SizedBox(
+            width: 220,
+            height: 60,
+            child: ElevatedButton(
+                onPressed: (){},
+                child: const Text("LOGIN", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)),
+          );
+  }
+
+  Padding inputEmail(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
+      child: TextFormField(
+        controller: _controllerEmail,
+        enabled: !_logando,
+        keyboardType: TextInputType.emailAddress,
+        cursorColor: Theme.of(context).backgroundColor,
+        decoration: InputDecoration(
+          labelText: 'E-mail',
+          errorText: _emailValido ? null : "Inválid e-mail",
+          labelStyle: TextStyle(
+            color: _emailValido
+                ? ColorsApp.primaryColor
+                : ColorsApp.error,
           ),
-          SizedBox(
-            width: 10,
+          suffixIcon: Icon(
+            _emailValido ? Icons.email : Icons.close,
+            color: _emailValido ? ColorsApp.primaryColor : ColorsApp.error,
           ),
-          Text("ENTRAR",
-              style: TextStyle(fontSize: 20)),
-        ],
-      ),
-      style: ElevatedButton.styleFrom(
-        // primary: Color(ColorsUtil.primaryColor),
-        padding: const EdgeInsets.all(8),
+          enabledBorder: const UnderlineInputBorder(
+            borderSide:
+            BorderSide(color: ColorsApp.primaryColor),
+          ),
+        ),
       ),
     );
   }
 
-  Text textLogin() {
-    return const Text(
-      "POR FAVOR, FAÇA O LOGIN",
-      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
-  }
-
   Padding inputSenha(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+      padding: const EdgeInsets.fromLTRB(40, 0, 40, 8),
       child: TextFormField(
         controller: _controllerSenha,
         enabled: !_logando,
@@ -86,12 +120,12 @@ class _LoginState extends State<Login> {
         obscureText: _senhaVisivel,
         cursorColor: Theme.of(context).backgroundColor,
         decoration: InputDecoration(
-          labelText: 'Senha',
-          errorText: _senhaValida ? null : "Senha inválida",
+          labelText: 'Password',
+          errorText: _senhaValida ? null : "Inválid password",
           labelStyle: TextStyle(
             color: _senhaValida
-                ? Colors.grey
-                : Colors.red,
+                ? ColorsApp.primaryColor
+                : ColorsApp.error,
           ),
           suffixIcon: IconButton(
               onPressed: (){
@@ -99,69 +133,13 @@ class _LoginState extends State<Login> {
                   _senhaVisivel = !_senhaVisivel;
                 });
               },
-              icon:  Icon( _senhaVisivel ? Icons.visibility: Icons.visibility_off, color: Colors.grey)),
-
+              icon:  Icon( _senhaVisivel ? Icons.visibility: Icons.visibility_off, color: ColorsApp.primaryColor)),
         ),
 
       ),
     );
   }
 
-  Padding inputEmail(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-      child: TextFormField(
-        controller: _controllerEmail,
-        enabled: !_logando,
-        keyboardType: TextInputType.emailAddress,
-        cursorColor: Theme.of(context).backgroundColor,
-        decoration: InputDecoration(
-          labelText: 'Usuário',
-          errorText: _emailValido ? null : "Usuário inválido",
-          labelStyle: TextStyle(
-            color: _emailValido
-                ? Colors.red
-                : Colors.red,
-          ),
-          suffixIcon: Icon(
-            _emailValido ? Icons.person : Icons.close,
-            color: _emailValido ? Colors.grey : Colors.red,
-          ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide:
-            BorderSide(color:Colors.red),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _logar() async {
-
-    setState(() {
-      _btnLoginVisible = false;
-    });
-
-    bool sucesso = true;
-
-    if(sucesso){
-      setState(() {
-        _emailValido = true;
-        _senhaValida = true;
-      });
-     //Todo:Abrir Tela Home
-    }
-    else{
-      setState(() {
-        _emailValido = false;
-        _senhaValida = false;
-      });
-    }
-
-    setState(() {
-      _btnLoginVisible = true;
-    });
 
 
-  }
 }
