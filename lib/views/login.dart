@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/util/colors_app.dart';
 import 'package:warrior_pets/util/utils.dart';
+import 'package:warrior_pets/views/home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -76,7 +77,10 @@ class _LoginState extends State<Login> {
             width: 220,
             height: 60,
             child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context)=> const Home()));
+                },
                 child: const Text("LOGIN", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)),
           );
   }
@@ -91,7 +95,7 @@ class _LoginState extends State<Login> {
         cursorColor: Theme.of(context).backgroundColor,
         decoration: InputDecoration(
           labelText: 'E-mail',
-          errorText: _emailValido ? null : "Inválid e-mail",
+          errorText: _emailValido ? null : "Invalid e-mail",
           labelStyle: TextStyle(
             color: _emailValido
                 ? ColorsApp.primaryColor
@@ -121,7 +125,7 @@ class _LoginState extends State<Login> {
         cursorColor: Theme.of(context).backgroundColor,
         decoration: InputDecoration(
           labelText: 'Password',
-          errorText: _senhaValida ? null : "Inválid password",
+          errorText: _senhaValida ? null : "Invalid password",
           labelStyle: TextStyle(
             color: _senhaValida
                 ? ColorsApp.primaryColor

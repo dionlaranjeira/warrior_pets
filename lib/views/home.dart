@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:warrior_pets/util/colors_app.dart';
 import 'package:warrior_pets/util/utils.dart';
 import 'package:warrior_pets/views/cats/show_cats.dart';
 import 'package:warrior_pets/views/dogs/show_dogs.dart';
@@ -45,10 +46,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       ),
 
         bottomNavigationBar: ConvexAppBar(
+          backgroundColor: ColorsApp.secondaryColor,
           controller: _tabController,
           items:  [
-            TabItem(icon: SvgPicture.asset(Utils.urlIconDog)),
-            TabItem(icon: SvgPicture.asset(Utils.urlIconCat)),
+            TabItem(icon: SvgPicture.asset(Utils.urlIconDog , color: ColorsApp.primaryColor)),
+            TabItem(icon: SvgPicture.asset(Utils.urlIconCat, color: ColorsApp.primaryColor)),
           ],
           initialActiveIndex: 0, //optional, default as 0
         )

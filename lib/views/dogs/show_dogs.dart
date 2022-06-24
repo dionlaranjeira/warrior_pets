@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/model/dog_breed.dart';
+import 'package:warrior_pets/util/colors_app.dart';
 import 'package:warrior_pets/view_model/list_dogs_breeds.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:warrior_pets/views/dogs/detail_dog_breed.dart';
@@ -41,6 +42,7 @@ class _ShowDogsState extends State<ShowDogs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsApp.background,
       body:FutureBuilder(
         future: listDogsBreedsViewModel.fetchDogBreeds(pageNumber, 50),
         builder: (context, snapshot){
