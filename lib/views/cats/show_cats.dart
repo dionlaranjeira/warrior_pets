@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/model/cat_breed.dart';
 import 'package:warrior_pets/view_model/list_cats_breeds.dart';
@@ -93,14 +94,19 @@ class _ShowCatsState extends State<ShowCats> {
             ListTile(
               title: Text(catBreed.name ?? "", textAlign: TextAlign.center,),
             ),
-            // Image.network(dogBreed.image!.url ?? urlPhotoNull),
             Hero(
-              // tag: catBreed.referenceImageId! ?? "",
               tag: catBreed.id!,
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  child: Image.network(catBreed.image!.url ?? urlPhotoNull),
+                  child: CachedNetworkImage(
+                    imageUrl: catBreed.image!.url ?? urlPhotoNull,
+                    placeholder: (context, url) => const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) =>const Icon(Icons.error),
+                  ),
                 ),
               ),
             ),

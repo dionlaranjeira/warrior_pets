@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/util/colors_app.dart';
 
@@ -31,7 +32,11 @@ class _DetailDogBreedState extends State<DetailDogBreed> {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Image.network(widget.dogBreed.image!.url ?? urlPhotoNull),
+                    CachedNetworkImage(
+                      imageUrl: widget.dogBreed.image!.url,
+                      placeholder: (context, url) => const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>const Icon(Icons.error),
+                    ),
                     Positioned(
                       bottom: -50,
                       left: 0,

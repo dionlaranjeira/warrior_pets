@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/model/dog_breed.dart';
 import 'package:warrior_pets/util/colors_app.dart';
@@ -97,7 +98,14 @@ class _ShowDogsState extends State<ShowDogs> {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  child: Image.network(dogBreed.image!.url ?? urlPhotoNull),
+                  child: CachedNetworkImage(
+                    imageUrl: dogBreed.image!.url ?? urlPhotoNull,
+                    placeholder: (context, url) => const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                    errorWidget: (context, url, error) =>const Icon(Icons.error),
+                  ),
                 ),
               ),
             ),

@@ -41,6 +41,7 @@ dependencies:
   charts_flutter: ^0.12.0
   flutter_native_splash:
   flutter_launcher_icons:
+  cached_network_image:
 
 flutter_native_splash:
   color: "#ef6d9d"

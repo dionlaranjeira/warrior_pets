@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/util/colors_app.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -55,7 +56,11 @@ class _DetailCatState extends State<DetailCat> {
                   Stack(
                     clipBehavior: Clip.none,
                     children: [
-                      Image.network(widget.catBreed.image!.url ?? urlPhotoNull),
+                      CachedNetworkImage(
+                        imageUrl: widget.catBreed.image!.url,
+                        placeholder: (context, url) => const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>const Icon(Icons.error),
+                      ),
                       Positioned(
                         bottom: -50,
                         left: 0,
