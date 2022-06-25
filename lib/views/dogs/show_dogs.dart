@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/model/dog_breed.dart';
 import 'package:warrior_pets/util/colors_app.dart';
+import 'package:warrior_pets/util/custom_search_delegate.dart';
+import 'package:warrior_pets/util/utils.dart';
 import 'package:warrior_pets/view_model/list_dogs_breeds.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:warrior_pets/views/dogs/detail_dog_breed.dart';
@@ -16,6 +18,7 @@ class ShowDogs extends StatefulWidget {
 class _ShowDogsState extends State<ShowDogs> {
 
   String urlPhotoNull = "https://www.pngall.com/wp-content/uploads/10/Pet-Silhouette.png";
+  String _query ="";
 
   final ScrollController _scrollController = ScrollController();
   int pageNumber = 0;
@@ -44,8 +47,25 @@ class _ShowDogsState extends State<ShowDogs> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorsApp.background,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(
+            color: Colors.grey
+        ),
+        title: Image.asset(Utils.urlWarriorPets, width: 200),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                String? resultQuery = await showSearch(context: context, delegate: CustomSearchDelegate());
+                setState(() {
+                  _query = resultQuery!;
+                });
+              },
+              icon: const Icon(Icons.search, size: 35)),
+        ],
+      ),
       body:FutureBuilder(
-        future: listDogsBreedsViewModel.fetchDogBreeds(pageNumber, 50),
+        future: _query.isEmpty ? listDogsBreedsViewModel.fetchDogBreeds(pageNumber, 50) : listDogsBreedsViewModel.searchDogBreeds(_query),
         builder: (context, snapshot){
 
           switch (snapshot.connectionState) {
