@@ -17,6 +17,6 @@ void main() async {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: Login())
+      home: Home())
   );
 }
