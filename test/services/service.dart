@@ -16,7 +16,7 @@ void main() {
   });
 
   test("deve retornar uma List<DogBreed>", () async {
-    final List<DogBreed> response = await service.searcheDogBreeds("akita");
+    final List<DogBreed> response = await service.searcheDogBreeds("Affenpinscher");
   });
 
 }
