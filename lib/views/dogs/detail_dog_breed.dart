@@ -55,107 +55,97 @@ class _DetailDogBreedState extends State<DetailDogBreed> {
         ),
       ));
 
-  ElevatedButton btnBack(BuildContext context) {
-    return ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text("Back"),
-                style: ElevatedButton.styleFrom(
-                    primary: ColorsApp.secondaryColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 50, vertical: 10),
-                    textStyle: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.bold)),
-              );
-  }
-
   Padding paddingExtraInforsDogs() {
     return Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                child: Text(
-                  "Temperament: " + widget.dogBreed.temperament,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: ColorsApp.primaryColor,
-                    fontSize: 18,
-                  ),
-                ),
-              );
-  }
-
-  Container containerInforsDog(BuildContext context) {
-    return Container(
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(32)),
-                          boxShadow: [
-                            BoxShadow(
-                                color: ColorsApp.background, spreadRadius: 4),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            Text(
-                              "Dog Category: " +
-                                  widget.dogBreed.breedGroupString,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorsApp.primaryColor,
-                                  fontSize: 14),
-                            ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.9,
-                            child:
-                            Text(
-                                widget.dogBreed.bredForString,
-                                textAlign: TextAlign.center)
-                          ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.pin_drop_outlined, size: 14),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  widget.dogBreed.originString,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.calendar_today,size: 14),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  widget.dogBreed.lifeSpan,
-                                  style: TextStyle(
-                                      color: Colors.black.withOpacity(0.6)),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: Text(
+        "Temperament: " + widget.dogBreed.temperament,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: ColorsApp.primaryColor,
+          fontSize: 18,
+        ),
+      ),
+    );
   }
 
   Container textAppBar(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(16.0),
-        width: MediaQuery.of(context).size.width * 0.8,
-        child:
-            Text(
-                widget.dogBreed.name,
-                textAlign: TextAlign.center,style: const TextStyle(
+      padding: const EdgeInsets.all(16.0),
+      width: MediaQuery.of(context).size.width * 0.8,
+      child: Text(widget.dogBreed.name,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, color: ColorsApp.primaryColor)),
+    );
+  }
+
+  Container containerInforsDog(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(32)),
+        boxShadow: [
+          BoxShadow(color: ColorsApp.background, spreadRadius: 4),
+        ],
+      ),
+      child: Column(
+        children: [
+          Text(
+            "Dog Category: " + widget.dogBreed.breedGroupString,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                color: ColorsApp.primaryColor)),
-      );
+                color: ColorsApp.primaryColor,
+                fontSize: 14),
+          ),
+          SizedBox(
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Text(widget.dogBreed.bredForString,
+                  textAlign: TextAlign.center)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.pin_drop_outlined, size: 14),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                widget.dogBreed.originString,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.black.withOpacity(0.6)),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.calendar_today, size: 14),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                widget.dogBreed.lifeSpan,
+                style: TextStyle(color: Colors.black.withOpacity(0.6)),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  ElevatedButton btnBack(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      child: const Text("Back"),
+      style: ElevatedButton.styleFrom(
+          primary: ColorsApp.secondaryColor,
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+          textStyle:
+              const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+    );
   }
 }
