@@ -35,6 +35,35 @@ class Service{
 
   }
 
+  Future <List<DogBreed>> searcheDogBreeds(String query) async {
+
+    Map<String, dynamic> parms = {
+      "x-api-key": xApiKey,
+      "q":query,
+    };
+
+    var response = await dio.get(
+      EndPoints.urlGetDogBreed,
+      queryParameters: parms,
+    );
+
+    if(response.statusCode == 200){
+      final listDogBreeds = response.data as List;
+      List<DogBreed> dogBreeds = [];
+
+      for(var d in  listDogBreeds){
+        DogBreed dog = DogBreed.fromJson(d);
+        dogBreeds.add(dog);
+      }
+      return dogBreeds;
+
+    }else{
+      throw Exception("Erro fetching dog breeds");
+    }
+
+  }
+
+
   Future <List<CatBreed>> fetchCatBreeds(int page, int limit) async {
 
     Map<String, dynamic> parms = {
