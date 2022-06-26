@@ -63,6 +63,7 @@ class _ShowDogsState extends State<ShowDogs> {
               },
               icon: const Icon(Icons.search, size: 35)),
         ],
+        automaticallyImplyLeading: false,
       ),
       body:FutureBuilder(
         future: _query.isEmpty ? listDogsBreedsViewModel.fetchDogBreeds(pageNumber, 50) : listDogsBreedsViewModel.searchDogBreeds(_query),

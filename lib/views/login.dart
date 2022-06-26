@@ -20,23 +20,26 @@ class _LoginState extends State<Login> {
   bool _loading = false;
   bool _emailValid = true;
 
-  _login(String email){
-    setState(() {
-      _loading = true;
-    });
-    if(loginUserViewModel.loginUser(email)["sucess"] == true){
+  _login(String email) async {
       setState(() {
-        _loading = false;
-        _emailValid = true;
+        _loading = true;
       });
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context)=>const Home()));
-    }else{
-      setState(() {
-        _emailValid = false;
-        _loading = false;
-      });
-    }
+
+    bool logged = await loginUserViewModel.loginUser(email);
+
+      if(logged){
+        setState((){
+          _loading = false;
+          _emailValid = true;
+        });
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context)=>const Home()));
+      }else{
+        setState(() {
+          _emailValid = false;
+          _loading = false;
+        });
+      }
   }
 
   @override
@@ -44,14 +47,16 @@ class _LoginState extends State<Login> {
     return MediaQuery(
       data: const MediaQueryData(),
       child: Scaffold(
-        body: Column(
-          children: [
-            imgScreenLogin(context),
-            const SizedBox(height: 50),
-            inputEmail(context),
-            const SizedBox(height: 20),
-            _loading ? const CircularProgressIndicator() : btnLogin(),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              imgScreenLogin(context),
+              const SizedBox(height: 30),
+              inputEmail(context),
+              const SizedBox(height: 20),
+              _loading ? const CircularProgressIndicator() : btnLogin(),
+            ],
+          ),
         ),
       ),
     );
@@ -63,14 +68,14 @@ class _LoginState extends State<Login> {
             children: [
               Container(color: ColorsApp.primaryColor, height: MediaQuery.of(context).size.height * 0.5),
               Positioned(
-                bottom: -50,
+                bottom: -30,
                 left: 0,
                 right: 0,
                 child: Center(
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     constraints: const BoxConstraints(maxWidth: 400),
-                    height: 300,
+                    height: 250,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(16)),
                       boxShadow: [
@@ -130,8 +135,5 @@ class _LoginState extends State<Login> {
                 child: const Text("LOGIN", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)),
           );
   }
-
-
-
 
 }

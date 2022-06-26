@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/util/colors_app.dart';
-import 'package:warrior_pets/util/utils.dart';
-import 'package:warrior_pets/views/home.dart';
-import 'package:warrior_pets/views/dogs/show_dogs.dart';
-import 'package:warrior_pets/views/login.dart';
+import 'package:warrior_pets/views/dogs/start_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(MaterialApp(
       theme: ThemeData(
         useMaterial3: true,
@@ -18,6 +16,6 @@ void main() async {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: Login())
+      home: const StartScren())
   );
 }

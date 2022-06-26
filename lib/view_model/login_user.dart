@@ -1,19 +1,19 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:warrior_pets/util/utils.dart';
 
 class LoginUserViewModel{
-  Map<String, dynamic>? userLogged;
-  loginUser(String email){
+  late final prefs;
+  late bool? logeed;
+
+  loginUser(String email) async {
     for(String user in Utils.users["users"]){
       if(email == user){
-        userLogged = {"sucess":true, "user": user};
-        return userLogged;
+        prefs = await SharedPreferences.getInstance();
+        await prefs.setString('user', email);
+        return true;
       }
     }
-    return userLogged = {"sucess":false};
+    return false;
   }
 }
 
-class UserLogeed {
-  final Map<String, dynamic>? userLogged;
-  UserLogeed(this.userLogged);
-}

@@ -62,6 +62,7 @@ class _ShowCatsState extends State<ShowCats> {
               },
               icon: const Icon(Icons.search, size: 35)),
         ],
+        automaticallyImplyLeading: false,
       ),
       body:FutureBuilder(
         future:  _query.isEmpty ? listCatsBreedsViewModel.fetchCatBreeds(pageNumber, 50) : listCatsBreedsViewModel.searchCatBreeds(_query),

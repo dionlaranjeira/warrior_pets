@@ -42,6 +42,7 @@ dependencies:
   flutter_native_splash:
   flutter_launcher_icons:
   cached_network_image:
+  shared_preferences: ^2.0.15
 
 flutter_native_splash:
   color: "#ef6d9d"
