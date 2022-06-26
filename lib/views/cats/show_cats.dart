@@ -6,6 +6,7 @@ import 'package:warrior_pets/util/custom_search_delegate.dart';
 import 'package:warrior_pets/util/utils.dart';
 import 'package:warrior_pets/view_model/list_cats_breeds.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:warrior_pets/view_model/login_user.dart';
 import 'package:warrior_pets/views/cats/detail_cat_breed.dart';
 
 class ShowCats extends StatefulWidget {
@@ -22,6 +23,7 @@ class _ShowCatsState extends State<ShowCats> {
   final ScrollController _scrollController = ScrollController();
   int pageNumber = 0;
   ListCatsBreedsViewModel listCatsBreedsViewModel = ListCatsBreedsViewModel();
+  LoginUserViewModel loginUserViewModel = LoginUserViewModel();
 
   @override
   void initState() {
@@ -40,6 +42,14 @@ class _ShowCatsState extends State<ShowCats> {
   void dispose() {
     _scrollController.dispose();
     super.dispose();
+  }
+
+  void handleClick(String value) async {
+    switch (value) {
+      case 'Logout':
+        loginUserViewModel.logoutUser(context);
+        break;
+    }
   }
 
   @override
@@ -61,6 +71,19 @@ class _ShowCatsState extends State<ShowCats> {
                 });
               },
               icon: const Icon(Icons.search, size: 35)),
+
+          PopupMenuButton<String>(
+            onSelected: handleClick,
+            itemBuilder: (BuildContext context) {
+              return {'Logout'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+
         ],
         automaticallyImplyLeading: false,
       ),

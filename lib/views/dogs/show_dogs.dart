@@ -6,6 +6,7 @@ import 'package:warrior_pets/util/custom_search_delegate.dart';
 import 'package:warrior_pets/util/utils.dart';
 import 'package:warrior_pets/view_model/list_dogs_breeds.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:warrior_pets/view_model/login_user.dart';
 import 'package:warrior_pets/views/dogs/detail_dog_breed.dart';
 
 class ShowDogs extends StatefulWidget {
@@ -23,6 +24,15 @@ class _ShowDogsState extends State<ShowDogs> {
   final ScrollController _scrollController = ScrollController();
   int pageNumber = 0;
   ListDogsBreedsViewModel listDogsBreedsViewModel = ListDogsBreedsViewModel();
+  LoginUserViewModel loginUserViewModel = LoginUserViewModel();
+
+  void handleClick(String value) async {
+    switch (value) {
+      case 'Logout':
+        loginUserViewModel.logoutUser(context);
+        break;
+    }
+  }
 
   @override
   void initState() {
@@ -62,6 +72,19 @@ class _ShowDogsState extends State<ShowDogs> {
                 });
               },
               icon: const Icon(Icons.search, size: 35)),
+
+          PopupMenuButton<String>(
+            onSelected: handleClick,
+            itemBuilder: (BuildContext context) {
+              return {'Logout'}.map((String choice) {
+                return PopupMenuItem<String>(
+                  value: choice,
+                  child: Text(choice),
+                );
+              }).toList();
+            },
+          ),
+
         ],
         automaticallyImplyLeading: false,
       ),
