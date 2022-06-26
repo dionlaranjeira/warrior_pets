@@ -171,7 +171,6 @@ class Service {
 
         listCats.add(c["name"]);
       }
-      print(listCats);
       return listCats;
     } else {
       throw Exception("Erro fetching all cat breeds");
