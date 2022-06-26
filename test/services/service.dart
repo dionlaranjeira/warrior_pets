@@ -23,4 +23,8 @@ void main() {
     final List<String> response = await service.fetchAllDogBreeds();
   });
 
+  test("deve retornar uma List<Cat>", () async {
+    final List<CatBreed> response = await service.searchCatBreeds("Abyssinian");
+  });
+
 }
