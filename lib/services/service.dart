@@ -53,7 +53,6 @@ class Service {
 
         listBreeds.add(d["name"]);
       }
-      print(listBreeds);
       return listBreeds;
     } else {
       throw Exception("Erro fetching all dog breeds");
@@ -67,7 +66,7 @@ class Service {
     };
 
     var response = await dio.get(
-      EndPoints.urlsearchDogBreed,
+      EndPoints.urlSearchDogBreed,
       queryParameters: parms,
     );
 
@@ -127,7 +126,7 @@ class Service {
     };
 
     var response = await dio.get(
-      EndPoints.urlsearchCatBreed,
+      EndPoints.urlSearchCatBreed,
       queryParameters: parms,
     );
 
@@ -143,13 +142,39 @@ class Service {
           photo.url = "https://cdn2.thecatapi.com/images/" + c["reference_image_id"] + ".jpg";
           cat.image = photo;
           catBreeds.add(cat);
-          print(cat.image!.url);
         }
 
       }
       return catBreeds;
     } else {
       throw Exception("Erro fetching cat breeds");
+    }
+  }
+
+  Future<List<String>> fetchAllCatBreeds() async {
+    Map<String, dynamic> parms = {
+      "x-api-key": xApiKey,
+    };
+
+    var response = await dio.get(
+      EndPoints.urlGetCatBreed,
+      queryParameters: parms,
+    );
+
+    if (response.statusCode == 200) {
+
+      List<String>? listCats = [];
+
+      final listCatBreeds = response.data as List;
+
+      for (var c in listCatBreeds) {
+
+        listCats.add(c["name"]);
+      }
+      print(listCats);
+      return listCats;
+    } else {
+      throw Exception("Erro fetching all cat breeds");
     }
   }
 
