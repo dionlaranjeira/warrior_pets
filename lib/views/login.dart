@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/util/colors_app.dart';
 import 'package:warrior_pets/util/utils.dart';
+import 'package:warrior_pets/view_model/login_user.dart';
 import 'package:warrior_pets/views/home.dart';
 
 class Login extends StatefulWidget {
@@ -12,13 +13,31 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
 
-  final TextEditingController _controllerEmail = TextEditingController();
-  final TextEditingController _controllerSenha = TextEditingController();
+  LoginUserViewModel loginUserViewModel = LoginUserViewModel();
 
-  final bool _logando = false;
-  bool _senhaVisivel = true;
-  final bool _emailValido = true;
-  final bool _senhaValida = true;
+  final TextEditingController _controllerEmail = TextEditingController();
+
+  bool _loading = false;
+  bool _emailValid = true;
+
+  _login(String email){
+    setState(() {
+      _loading = true;
+    });
+    if(loginUserViewModel.loginUser(email)["sucess"] == true){
+      setState(() {
+        _loading = false;
+        _emailValid = true;
+      });
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context)=>const Home()));
+    }else{
+      setState(() {
+        _emailValid = false;
+        _loading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +49,8 @@ class _LoginState extends State<Login> {
             imgScreenLogin(context),
             const SizedBox(height: 50),
             inputEmail(context),
-            inputSenha(context),
             const SizedBox(height: 20),
-            btnLogin()
+            _loading ? const CircularProgressIndicator() : btnLogin(),
           ],
         ),
       ),
@@ -72,38 +90,25 @@ class _LoginState extends State<Login> {
           );
   }
 
-  SizedBox btnLogin() {
-    return SizedBox(
-            width: 220,
-            height: 60,
-            child: ElevatedButton(
-                onPressed: (){
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context)=> const Home()));
-                },
-                child: const Text("LOGIN", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)),
-          );
-  }
-
   Padding inputEmail(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(40, 8, 40, 8),
       child: TextFormField(
         controller: _controllerEmail,
-        enabled: !_logando,
+        enabled: !_loading,
         keyboardType: TextInputType.emailAddress,
         cursorColor: Theme.of(context).backgroundColor,
         decoration: InputDecoration(
           labelText: 'E-mail',
-          errorText: _emailValido ? null : "Invalid e-mail",
+          errorText: _emailValid ? null : "Invalid e-mail",
           labelStyle: TextStyle(
-            color: _emailValido
+            color: _emailValid
                 ? ColorsApp.primaryColor
                 : ColorsApp.error,
           ),
           suffixIcon: Icon(
-            _emailValido ? Icons.email : Icons.close,
-            color: _emailValido ? ColorsApp.primaryColor : ColorsApp.error,
+            _emailValid ? Icons.email : Icons.info,
+            color: _emailValid ? ColorsApp.primaryColor : ColorsApp.error,
           ),
           enabledBorder: const UnderlineInputBorder(
             borderSide:
@@ -114,35 +119,18 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Padding inputSenha(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(40, 0, 40, 8),
-      child: TextFormField(
-        controller: _controllerSenha,
-        enabled: !_logando,
-        keyboardType: TextInputType.visiblePassword,
-        obscureText: _senhaVisivel,
-        cursorColor: Theme.of(context).backgroundColor,
-        decoration: InputDecoration(
-          labelText: 'Password',
-          errorText: _senhaValida ? null : "Invalid password",
-          labelStyle: TextStyle(
-            color: _senhaValida
-                ? ColorsApp.primaryColor
-                : ColorsApp.error,
-          ),
-          suffixIcon: IconButton(
-              onPressed: (){
-                setState(() {
-                  _senhaVisivel = !_senhaVisivel;
-                });
-              },
-              icon:  Icon( _senhaVisivel ? Icons.visibility: Icons.visibility_off, color: ColorsApp.primaryColor)),
-        ),
-
-      ),
-    );
+  SizedBox btnLogin() {
+    return SizedBox(
+            width: 220,
+            height: 60,
+            child: ElevatedButton(
+                onPressed: (){
+                  _login(_controllerEmail.text);
+                },
+                child: const Text("LOGIN", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)),
+          );
   }
+
 
 
 

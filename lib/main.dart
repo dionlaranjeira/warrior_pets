@@ -18,6 +18,6 @@ void main() async {
         )
       ),
       debugShowCheckedModeBanner: false,
-      home: Home())
+      home: Login())
   );
 }

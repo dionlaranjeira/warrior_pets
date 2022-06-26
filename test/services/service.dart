@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:warrior_pets/model/cat_breed.dart';
 import 'package:warrior_pets/model/dog_breed.dart';
 import 'package:warrior_pets/services/service.dart';
+import 'package:warrior_pets/util/utils.dart';
+import 'package:warrior_pets/views/login.dart';
 
 void main() {
 
