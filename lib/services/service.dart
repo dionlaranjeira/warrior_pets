@@ -60,9 +60,6 @@ class Service {
     }
   }
 
-
-
-
   Future<List<DogBreed>> searchDogBreeds(String query) async {
     Map<String, dynamic> parms = {
       "x-api-key": xApiKey,
@@ -122,4 +119,38 @@ class Service {
       throw Exception("Erro fetching cat breeds");
     }
   }
+
+  Future<List<CatBreed>> searchCatBreeds(String query) async {
+    Map<String, dynamic> parms = {
+      "x-api-key": xApiKey,
+      "q": query,
+    };
+
+    var response = await dio.get(
+      EndPoints.urlsearchCatBreed,
+      queryParameters: parms,
+    );
+
+    if (response.statusCode == 200) {
+      final listCatBreeds = response.data as List;
+      List<CatBreed> catBreeds = [];
+
+      for (var c in listCatBreeds) {
+        if (c["reference_image_id"] != null) {
+          CatBreed cat = CatBreed.fromJson(c);
+          Photo photo = Photo();
+          photo.id = c["reference_image_id"];
+          photo.url = "https://cdn2.thecatapi.com/images/" + c["reference_image_id"] + ".jpg";
+          cat.image = photo;
+          catBreeds.add(cat);
+          print(cat.image!.url);
+        }
+
+      }
+      return catBreeds;
+    } else {
+      throw Exception("Erro fetching cat breeds");
+    }
+  }
+
 }
