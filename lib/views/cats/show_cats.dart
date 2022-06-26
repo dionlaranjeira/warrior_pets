@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:warrior_pets/model/cat_breed.dart';
+import 'package:warrior_pets/util/colors_app.dart';
+import 'package:warrior_pets/util/custom_search_delegate.dart';
+import 'package:warrior_pets/util/utils.dart';
 import 'package:warrior_pets/view_model/list_cats_breeds.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:warrior_pets/views/cats/detail_cat_breed.dart';
@@ -15,7 +18,7 @@ class ShowCats extends StatefulWidget {
 class _ShowCatsState extends State<ShowCats> {
 
   String urlPhotoNull = "https://www.creativefabrica.com/wp-content/uploads/2021/01/26/Cat-Icon-Graphics-8071439-1.jpg";
-
+  String _query ="";
   final ScrollController _scrollController = ScrollController();
   int pageNumber = 0;
   ListCatsBreedsViewModel listCatsBreedsViewModel = ListCatsBreedsViewModel();
@@ -42,8 +45,26 @@ class _ShowCatsState extends State<ShowCats> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsApp.background,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(
+            color: Colors.grey
+        ),
+        title: Image.asset(Utils.urlWarriorPets, width: 200),
+        actions: [
+          IconButton(
+              onPressed: () async {
+                String? resultQuery = await showSearch(context: context, delegate: CustomSearchDelegate(Utils.searchCat));
+                setState(() {
+                  _query = resultQuery!;
+                });
+              },
+              icon: const Icon(Icons.search, size: 35)),
+        ],
+      ),
       body:FutureBuilder(
-        future: listCatsBreedsViewModel.fetchCatBreeds(pageNumber, 50),
+        future:  _query.isEmpty ? listCatsBreedsViewModel.fetchCatBreeds(pageNumber, 50) : listCatsBreedsViewModel.searchCatBreeds(_query),
         builder: (context, snapshot){
 
           switch (snapshot.connectionState) {

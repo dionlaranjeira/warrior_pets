@@ -7,6 +7,12 @@ class ListCatsBreedsViewModel{
     final apiResult = await Service().fetchCatBreeds(page, limit);
     catBreeds = apiResult.map((e) => CatsBreedsViewModel(e)).toList();
   }
+
+  Future<void> searchCatBreeds(String query) async {
+    final apiResult = await Service().searchCatBreeds(query);
+    catBreeds = apiResult.map((e) => CatsBreedsViewModel(e)).toList();
+  }
+
 }
 
 class CatsBreedsViewModel {
