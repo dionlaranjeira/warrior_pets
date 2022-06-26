@@ -56,7 +56,7 @@ class _ShowDogsState extends State<ShowDogs> {
         actions: [
           IconButton(
               onPressed: () async {
-                String? resultQuery = await showSearch(context: context, delegate: CustomSearchDelegate());
+                String? resultQuery = await showSearch(context: context, delegate: CustomSearchDelegate(Utils.searchDog));
                 setState(() {
                   _query = resultQuery!;
                 });
