@@ -44,19 +44,16 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: const MediaQueryData(),
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              imgScreenLogin(context),
-              const SizedBox(height: 30),
-              inputEmail(context),
-              const SizedBox(height: 20),
-              _loading ? const CircularProgressIndicator() : btnLogin(),
-            ],
-          ),
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            imgScreenLogin(context),
+            const SizedBox(height: 30),
+            inputEmail(context),
+            const SizedBox(height: 20),
+            _loading ? const CircularProgressIndicator() : btnLogin(),
+          ],
         ),
       ),
     );
