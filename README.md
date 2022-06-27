@@ -19,9 +19,9 @@ Tabela de conteúdos
 
 ## 💻 Sobre o projeto
 
-Warrior Pets é um projeto desenvolvido em Flutter/Dart que tem como objetivo exemplificar o consumo de webservice utilizando método GET ao consumir as APIs <span> <a href="https://api.thecatapi.com"> Cat Api </a> </span> e <span> <a href="https://api.theDOGapi.com"> DOG Api </a> </span>. 
-O consumo das APIs é feito utilizando a biblioteca <a href="https://pub.dev/packages/dio"> DIO </a> </span>, no pacote de testes é possível verificar os testes unitários para para a biblioteca. Esse projeto encontra-se na arquitetura MVVM. Também é mostrado como utilizar o recurso de busca 
-CustomSearch delegate, o uso de Bottom Navigator Bar, construção de Gráficos com a depencia Charts Flutter, exibição de imagens da internet com biblioteca Cached Network Image e a persistência de dados no dispositivo com a biblioteca shared Preferences.
+<p>Warrior Pets é um projeto desenvolvido em Flutter/Dart que tem como objetivo exemplificar o consumo de webservice utilizando método o GET para consumir as APIs <span> <a href="https://api.thecatapi.com"> Cat Api </a> </span> e <span> <a href="https://api.theDOGapi.com"> DOG Api </a> </span>.</p>  
+<p>O consumo das APIs é feito utilizando a biblioteca <span> <a href="https://pub.dev/packages/dio"> DIO </a> </span>, no pacote de testes é possível verificar os testes unitários para a biblioteca.</p> 
+<p>Esse projeto encontra-se na arquitetura MVVM. Também é mostrado como utilizar o recurso de busca CustomSearch delegate, o uso de Bottom Navigator Bar, construção de Gráficos com a biblioteca Charts Flutter, exibição de imagens da internet com biblioteca Cached Network Image e a persistência de dados no dispositivo com a biblioteca shared Preferences.</p>
 
 
 ---
