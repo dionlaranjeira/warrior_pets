@@ -44,12 +44,11 @@ As imagens abaixo mostram as principais telas do aplicativo.
 
 ---
 ## 🎞 Vídeo 
-O vídeo abaixo mostra como utilizar o aplicativo
+Clique na imagem abaixo para visualizar o vídeo demostrativo do aplicativo.
 
 <a href="https://www.youtube.com/embed/O4rJ3A667c4">
-         <img alt="Qries" src="https://static.vecteezy.com/ti/vetor-gratis/p3/3399771-youtube-icon-editorial-vector-grátis-vetor.jpg"
-         width=150" height="70">
-      </a>
+         <img alt="Qries" src="https://static.vecteezy.com/ti/vetor-gratis/p3/3399771-youtube-icon-editorial-vector-grátis-vetor.jpg">
+</a>
 
 ---
 ## 🚀 Como executar o projeto
