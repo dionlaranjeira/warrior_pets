@@ -26,7 +26,7 @@ Tabela de conteúdos
 
 ---
 
-## 🎨 Vídeo
+## 🎨 layout
 As imagens abaixo mostram as principais telas do aplicativo.
 
 <figure align="center">
@@ -46,8 +46,10 @@ As imagens abaixo mostram as principais telas do aplicativo.
 ## 🎞 Vídeo 
 O vídeo abaixo mostra como utilizar o aplicativo
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/O4rJ3A667c4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<a href="https://www.youtube.com/embed/O4rJ3A667c4">
+         <img alt="Qries" src="https://static.vecteezy.com/ti/vetor-gratis/p3/3399771-youtube-icon-editorial-vector-grátis-vetor.jpg"
+         width=150" height="70">
+      </a>
 
 ---
 ## 🚀 Como executar o projeto
@@ -82,11 +84,10 @@ $ flutter run
 
 Para acessar o app, utilize qualquer um dos emails: usertest@gmail.com, dionribeiro.rr@gmail.com, dion_net@gmail.com, dionribeiro.rr@outlook.com
 
-- [Flutter](https://flutter.dev/)
-
 
 ## 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
+- [Dart](https://dart.dev)
 - [Flutter](https://flutter.dev/)
