@@ -13,6 +13,7 @@ Tabela de conteúdos
     * [Pré-requisitos](#pré-requisitos)
     * [Rodando o Aplicativo](#-rodando-o-aplicativo)
 * [Login_app](#-login)
+* [Download-apk](#-Apk)
 * [Tecnologias](#-tecnologias)
 <!--te-->
 
@@ -84,7 +85,12 @@ $ flutter run
 
 Para acessar o app, utilize qualquer um dos emails: usertest@gmail.com, dionribeiro.rr@gmail.com, dion_net@gmail.com, dionribeiro.rr@outlook.com
 
+---
+## 📱 Apk
 
+<span> <a href="https://drive.google.com/file/d/1Z_4pJOQqSpl6Q2Udr9h7qbPPNNUIuSL3/view?usp=sharing"> Clique aqui para baixar o aplicativo </a> </span>
+
+---
 ## 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
