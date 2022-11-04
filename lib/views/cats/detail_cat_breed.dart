@@ -238,7 +238,7 @@ class _DetailCatState extends State<DetailCat> {
       },
       child: const Text("Back"),
       style: ElevatedButton.styleFrom(
-          primary: ColorsApp.secondaryColor,
+          backgroundColor: ColorsApp.secondaryColor,
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
           textStyle:
               const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
