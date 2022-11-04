@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:warrior_pets/util/colors_app.dart';
 
 class DetailDogBreed extends StatefulWidget {
@@ -14,6 +17,44 @@ class DetailDogBreed extends StatefulWidget {
 class _DetailDogBreedState extends State<DetailDogBreed> {
   String urlPhotoNull =
       "https://www.pngall.com/wp-content/uploads/10/Pet-Silhouette.png";
+
+  late final BannerAd? myBanner;
+  final AdSize adSize = const AdSize(height: 100, width: 400);
+  final BannerAdListener listener = BannerAdListener(
+    // Called when an ad is successfully received.
+    onAdLoaded: (Ad ad) => debugPrint('Ad loaded.'),
+    // Called when an ad request failed.
+    onAdFailedToLoad: (Ad ad, LoadAdError error) {
+      // Dispose the ad here to free resources.
+      ad.dispose();
+      debugPrint('Ad failed to load: $error');
+    },
+    // Called when an ad opens an overlay that covers the screen.
+    onAdOpened: (Ad ad) => debugPrint('Ad opened.'),
+    // Called when an ad removes an overlay that covers the screen.
+    onAdClosed: (Ad ad) => debugPrint('Ad closed.'),
+    // Called when an impression occurs on the ad.
+    onAdImpression: (Ad ad) => debugPrint('Ad impression.'),
+  );
+
+  InterstitialAd? interstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      myBanner = BannerAd(
+        adUnitId: Platform.isAndroid == true
+            ? "ca-app-pub-6151915718502479/3657357252"
+            : "ca-app-pub-6151915718502479~8610339029",
+        size: adSize,
+        request: const AdRequest(),
+        listener: listener,
+      );
+      myBanner!.load();
+    });
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -34,8 +75,10 @@ class _DetailDogBreedState extends State<DetailDogBreed> {
                   children: [
                     CachedNetworkImage(
                       imageUrl: widget.dogBreed.image!.url,
-                      placeholder: (context, url) => const CircularProgressIndicator(),
-                      errorWidget: (context, url, error) =>const Icon(Icons.error),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                     Positioned(
                       bottom: -50,
@@ -52,7 +95,23 @@ class _DetailDogBreedState extends State<DetailDogBreed> {
                 const SizedBox(height: 20),
                 btnBack(context),
                 const SizedBox(
-                  height: 20,
+                  height: 40,
+                ),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      myBanner != null
+                          ? Container(
+                              alignment: Alignment.center,
+                              child: AdWidget(ad: myBanner!),
+                              width: double.infinity,
+                              height: 100,
+                            )
+                          : Container(),
+                      const SizedBox(height: 10),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -147,7 +206,7 @@ class _DetailDogBreedState extends State<DetailDogBreed> {
       },
       child: const Text("Back"),
       style: ElevatedButton.styleFrom(
-          primary: ColorsApp.secondaryColor,
+          backgroundColor: ColorsApp.secondaryColor,
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
           textStyle:
               const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),

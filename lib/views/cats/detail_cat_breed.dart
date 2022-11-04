@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:warrior_pets/util/colors_app.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:warrior_pets/model/bar_chart.dart';
+import 'package:warrior_pets/util/colors_app.dart';
 
 class DetailCat extends StatefulWidget {
   final dynamic catBreed;
@@ -16,6 +19,44 @@ class DetailCat extends StatefulWidget {
 class _DetailCatState extends State<DetailCat> {
   String urlPhotoNull =
       "https://www.creativefabrica.com/wp-content/uploads/2021/01/26/Cat-Icon-Graphics-8071439-1.jpg";
+
+  late final BannerAd? myBanner;
+  final AdSize adSize = const AdSize(height: 100, width: 400);
+  final BannerAdListener listener = BannerAdListener(
+    // Called when an ad is successfully received.
+    onAdLoaded: (Ad ad) => debugPrint('Ad loaded.'),
+    // Called when an ad request failed.
+    onAdFailedToLoad: (Ad ad, LoadAdError error) {
+      // Dispose the ad here to free resources.
+      ad.dispose();
+      debugPrint('Ad failed to load: $error');
+    },
+    // Called when an ad opens an overlay that covers the screen.
+    onAdOpened: (Ad ad) => debugPrint('Ad opened.'),
+    // Called when an ad removes an overlay that covers the screen.
+    onAdClosed: (Ad ad) => debugPrint('Ad closed.'),
+    // Called when an impression occurs on the ad.
+    onAdImpression: (Ad ad) => debugPrint('Ad impression.'),
+  );
+
+  InterstitialAd? interstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    setState(() {
+      myBanner = BannerAd(
+        adUnitId: Platform.isAndroid == true
+            ? "ca-app-pub-6151915718502479/3657357252"
+            : "ca-app-pub-6151915718502479~8610339029",
+        size: adSize,
+        request: const AdRequest(),
+        listener: listener,
+      );
+      myBanner!.load();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +99,10 @@ class _DetailCatState extends State<DetailCat> {
                     children: [
                       CachedNetworkImage(
                         imageUrl: widget.catBreed.image!.url,
-                        placeholder: (context, url) => const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>const Icon(Icons.error),
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
                       ),
                       Positioned(
                         bottom: -50,
@@ -77,7 +120,23 @@ class _DetailCatState extends State<DetailCat> {
                   const SizedBox(height: 20),
                   btnBack(context),
                   const SizedBox(
-                    height: 20,
+                    height: 40,
+                  ),
+                  Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        myBanner != null
+                            ? Container(
+                                alignment: Alignment.center,
+                                child: AdWidget(ad: myBanner!),
+                                width: double.infinity,
+                                height: 100,
+                              )
+                            : Container(),
+                        const SizedBox(height: 10),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -119,7 +178,6 @@ class _DetailCatState extends State<DetailCat> {
                   fontSize: 14),
             ),
           ),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -183,8 +241,7 @@ class _DetailCatState extends State<DetailCat> {
           primary: ColorsApp.secondaryColor,
           padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
           textStyle:
-          const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
     );
   }
-
 }
